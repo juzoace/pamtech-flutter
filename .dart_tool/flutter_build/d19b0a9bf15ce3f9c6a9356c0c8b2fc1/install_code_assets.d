@@ -1,0 +1,1 @@
+ /Users/mac/Desktop/P/Pamtech/Products/autotech/.dart_tool/flutter_build/d19b0a9bf15ce3f9c6a9356c0c8b2fc1/native_assets.json: 
