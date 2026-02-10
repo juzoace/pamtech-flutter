@@ -102,7 +102,7 @@ class _NotificationPageState extends State<NotificationPage> {
                               'Access your check-in information in the app',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.black,
+                                color: Color(0xFF181A20),
                                 height: 1.2,
                               ),
                             ),

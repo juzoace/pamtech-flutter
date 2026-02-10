@@ -16,19 +16,18 @@ class DioClient {
   String? token;
   String? countryCode;
 
-  DioClient(this.baseUrl,
-      Dio? dioC, {
-        required this.loggingInterceptor,
-        required this.sharedPreferences,
-      }) {
+  DioClient(
+    this.baseUrl,
+    Dio? dioC, {
+    required this.loggingInterceptor,
+    required this.sharedPreferences,
+  }) {
     token = sharedPreferences.getString(AppConstants.userLoginToken);
-
 
     // countryCode = sharedPreferences.getString(AppConstants.countryCode) ?? AppConstants.languages[0].countryCode;
     // if (kDebugMode) {
     //   print("NNNN $token");
     // }
-
 
     dio = dioC ?? Dio();
     dio
@@ -40,8 +39,8 @@ class DioClient {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',
-        // AppConstants.langKey : countryCode == 'US'? 'en':countryCode!.toLowerCase(),
 
+        // AppConstants.langKey : countryCode == 'US'? 'en':countryCode!.toLowerCase(),
       };
     dio!.interceptors.add(loggingInterceptor);
   }
@@ -58,7 +57,8 @@ class DioClient {
     };
   }
 
-  Future<Response> get(String uri, {
+  Future<Response> get(
+    String uri, {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
@@ -82,8 +82,6 @@ class DioClient {
     }
   }
 
-
-
   // Future<Response> getDownload(String uri, {
   //   Map<String, dynamic>? queryParameters,
   //   Options? options,
@@ -105,9 +103,8 @@ class DioClient {
   //   }
   // }
 
-
-
-  Future<Response> post(String uri, {
+  Future<Response> post(
+    String uri, {
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
@@ -116,6 +113,7 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
+       print('response in dio client');
       var response = await dio!.post(
         uri,
         data: data,
@@ -125,15 +123,19 @@ class DioClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
+      print('response in dio client');
+      print(response);
       return response;
     } on FormatException catch (_) {
+      print('Format Exception caught');
       throw const FormatException("Unable to process the data");
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<Response> put(String uri, {
+  Future<Response> put(
+    String uri, {
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
@@ -159,7 +161,8 @@ class DioClient {
     }
   }
 
-  Future<Response> delete(String uri, {
+  Future<Response> delete(
+    String uri, {
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
@@ -180,6 +183,4 @@ class DioClient {
       rethrow;
     }
   }
-
-
 }

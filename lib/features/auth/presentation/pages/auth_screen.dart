@@ -1,4 +1,4 @@
-import 'package:autotech/features/auth/presentation/pages/signup.dart';
+import 'package:autotech/features/auth/presentation/pages/signup/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:autotech/core/theme/app_pallete.dart';
 import 'package:autotech/features/auth/presentation/pages/login.dart';
