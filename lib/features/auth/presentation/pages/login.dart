@@ -121,12 +121,12 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       height: 400,
                       width: double.infinity,
-                      // decoration: const BoxDecoration(
-                      //   image: DecorationImage(
-                      //     image: AssetImage('assets/images/login_header.png'),
-                      //     fit: BoxFit.cover,
-                      //   ),
-                      // ),
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/login_header.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -136,11 +136,11 @@ class _LoginPageState extends State<LoginPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              // Image.asset(
-                              //   'assets/images/pamtech_logo.png',
-                              //   height: 40,
-                              //   fit: BoxFit.contain,
-                              // ),
+                              Image.asset(
+                                'assets/images/pamtech_logo.png',
+                                height: 40,
+                                fit: BoxFit.contain,
+                              ),
                             ],
                           ),
 

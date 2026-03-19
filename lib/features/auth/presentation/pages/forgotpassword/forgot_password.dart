@@ -237,7 +237,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   color: Colors.black.withOpacity(0.3),
                   child: const Center(
                     child: CircularProgressIndicator(
-                      color: Colors.blue,
+                      color: AppPallete.primaryColor,
                       strokeWidth: 4,
                     ),
                   ),

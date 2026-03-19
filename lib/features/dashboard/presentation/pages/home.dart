@@ -1,24 +1,19 @@
 import 'package:autotech/core/theme/app_pallete.dart';
-import 'package:autotech/features/dashboard/presentation/pages/request.dart';
+import 'package:autotech/features/dashboard/presentation/pages/dashboard.dart';
+import 'package:autotech/features/profile/controllers/profile_controller.dart';
+import 'package:autotech/features/profile/domain/entities/profile.dart';
+import 'package:autotech/features/requests/presentation/pages/requests.dart';
 import 'package:autotech/features/settings/presentation/pages/settings.dart';
 import 'package:autotech/features/repairs/presentation/pages/repairs.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Autotech Dashboard',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
-        useMaterial3: true,
-      ),
-      home: const DashboardScreen(),
-    );
+    return const DashboardScreen();
   }
 }
 
@@ -42,6 +37,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   void _onBottomNavTap(int index) {
     setState(() => _selectedIndex = index);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      fetchUserProfile();
+      // _fetchRepairs();
+    });
+  }
+
+  fetchUserProfile() async {
+    print('Trying to fetch user profile');
+    try {
+      final profile = Provider.of<ProfileController>(context, listen: false);
+      await profile.fetchProfile();
+    } catch (e) {}
   }
 
   @override
@@ -81,9 +93,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               icon: ImageIcon(
                 const AssetImage('assets/images/home.png'),
                 size: 26,
-                color: _selectedIndex == 0
-                    ? const Color(0xFF134CA2)
-                    : Colors.grey,
+                color:
+                    _selectedIndex == 0 ? const Color(0xFF134CA2) : Colors.grey,
               ),
               label: 'Home',
             ),
@@ -91,9 +102,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               icon: ImageIcon(
                 const AssetImage('assets/images/repairs.png'),
                 size: 26,
-                color: _selectedIndex == 1
-                    ? const Color(0xFF134CA2)
-                    : Colors.grey,
+                color:
+                    _selectedIndex == 1 ? const Color(0xFF134CA2) : Colors.grey,
               ),
               label: 'My Repairs',
             ),
@@ -101,9 +111,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               icon: ImageIcon(
                 const AssetImage('assets/images/request.png'),
                 size: 26,
-                color: _selectedIndex == 2
-                    ? const Color(0xFF134CA2)
-                    : Colors.grey,
+                color:
+                    _selectedIndex == 2 ? const Color(0xFF134CA2) : Colors.grey,
               ),
               label: 'Request',
             ),
@@ -111,9 +120,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               icon: ImageIcon(
                 const AssetImage('assets/images/setting.png'),
                 size: 26,
-                color: _selectedIndex == 3
-                    ? const Color(0xFF134CA2)
-                    : Colors.grey,
+                color:
+                    _selectedIndex == 3 ? const Color(0xFF134CA2) : Colors.grey,
               ),
               label: 'Settings',
             ),
@@ -123,16 +131,3 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 }
-
-// Placeholder pages (keep or replace with your real content)
-class HomeContent extends StatelessWidget {
-  const HomeContent({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Home Dashboard\n(Upcoming services, reminders, etc.)'),
-    );
-  }
-}
-

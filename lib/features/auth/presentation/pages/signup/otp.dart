@@ -94,7 +94,9 @@ class _OtpPageState extends State<OtpPage> {
         final isLoading = auth.isLoading;
         return PopScope(
           canPop: false,
-          child: Scaffold(
+          child: 
+          
+          Scaffold(
             backgroundColor: Colors.white,
             body: Stack(
               children: [
@@ -304,6 +306,8 @@ class _OtpPageState extends State<OtpPage> {
               ],
             ),
           ),
+       
+       
         );
       },
     );

@@ -64,7 +64,117 @@ class _HelpSupportState extends State<HelpSupport> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-          child: Column(children: [Text('Help & Support')]),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 16),
+
+              // ── Live Chat Support Button ────────────────────────────────
+              InkWell(
+                onTap: () {
+                  // TODO: Open live chat / support screen
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Opening Live Chat...')),
+                  );
+                },
+                // borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  height: 68,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color(0xFF5C5C5C), // blue border
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white, // or very light blue if preferred
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Left: icon + text
+                        Row(
+                          children: [
+                            Image.asset(
+                              'assets/images/call_center.png', // ← your call center PNG
+                              height: 24,
+                              width: 24,
+                            ),
+                            const SizedBox(width: 16),
+                            const Text(
+                              'Contact Live Chat',
+                              style: TextStyle(
+                                fontSize: 18,
+                                wordSpacing: -1.8,
+                                letterSpacing: -1.2,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // Right: arrow icon
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 18,
+                          color: const Color(0xFF010309),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              // Add more support options below if needed
+              const SizedBox(height: 24),
+
+              // Complete buy adding email.png centered, a text underneath, then another underneath. All 3 centered
+              // InkWell(...),
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 40),
+                    // Email icon
+                    Image.asset(
+                      'assets/images/email.png',
+                      height: 60,
+                      width: 60,
+                    ),
+                    const SizedBox(height: 25),
+
+                    // Helper text
+                    Text(
+                      'Send Us an e-mail:',
+                      style: TextStyle(
+                         wordSpacing: -1.8,
+                                letterSpacing: -1.2,
+                        fontSize: 16,
+                        color: Colors.grey.shade700,
+                        height: 1.4,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 6),
+                    // Main text
+                    Text(
+                      'support@pamtechcarcare.com',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: -0.4,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

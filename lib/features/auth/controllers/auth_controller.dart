@@ -9,7 +9,6 @@ class AuthController with ChangeNotifier {
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
-
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
   bool _registrationSuccess = false;
@@ -142,8 +141,6 @@ class AuthController with ChangeNotifier {
         email: email,
         password: password,
       );
-      print('checking response in authcontroller file');
-      print(success);
 
       if (success) {
         _loginSuccess = true;

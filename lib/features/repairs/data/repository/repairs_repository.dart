@@ -6,7 +6,6 @@ import 'package:autotech/features/repairs/domain/services/repairs_service_interf
 import 'package:autotech/util/app_constants.dart';
 import 'package:dio/dio.dart';
 import 'dart:developer';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RepairsRepository implements RepairsServiceInterface {
@@ -18,18 +17,23 @@ class RepairsRepository implements RepairsServiceInterface {
   @override
   Future<ApiResponseModel> fetchUserRepairs() async {
     try {
-      final response = await dioClient!.get(
+      print('print before api call');
+      final response = await dioClient!.post(
         AppConstants.fetchUserRepairUri, // we'll define this constant next
         // You can add query params if needed, e.g. ?page=1&limit=20
         // queryParameters: {'status': 'pending'},
       );
 
-      log('fetchUserRepairs raw response: ${response.data}');
+      print('print after api call');
+
+      // log('fetchUserRepairs raw response: ${response.data}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = response.data as Map<String, dynamic>;
 
         if (data['success'] == true) {
+          print('ApiResponseModel.withSuccess(response);');
+          print(ApiResponseModel.withSuccess(response));
           // Optionally process/transform data here if needed
           return ApiResponseModel.withSuccess(response);
         } else {
@@ -51,19 +55,108 @@ class RepairsRepository implements RepairsServiceInterface {
     }
   }
 
-  // Add more methods when needed, e.g.:
-  /*
   @override
-  Future<ApiResponseModel> createRepairRequest(Map<String, dynamic> data) async {
+  Future<ApiResponseModel> fetchRepairDetails(int repairId) async {
+    var data = {"id": repairId};
+
     try {
+      print('Fetching repair details for ID: $repairId');
+
       final response = await dioClient!.post(
-        AppConstants.createRepairUri,
+        '${AppConstants.repairBaseUri}',
         data: data,
       );
-      return ApiResponseModel.withSuccess(response);
+
+      print('Repair details response status: ${response.statusCode}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = response.data as Map<String, dynamic>;
+
+        if (data['success'] == true) {
+          print('Repair details fetched successfully');
+          return ApiResponseModel.withSuccess(response);
+        } else {
+          return ApiResponseModel.withError(
+            data['message'] ?? 'Failed to fetch repair details',
+          );
+        }
+      } else {
+        return ApiResponseModel.withError(
+          'Server error: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      log('Dio error fetching repair details: $e');
+      return ApiResponseModel.withError(ApiErrorHandler.getMessage(e));
     } catch (e) {
+      log('Unexpected error fetching repair details: $e');
       return ApiResponseModel.withError(ApiErrorHandler.getMessage(e));
     }
   }
-  */
+
+  @override
+  Future<ApiResponseModel> acceptRepairEstimate(dynamic data) async {
+    try {
+      final response = await dioClient!.post(
+        '${AppConstants.acceptEstimateUri}',
+        data: data,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = response.data as Map<String, dynamic>;
+
+        if (data['success'] == true) {
+          // print(' details fetched successfully');
+          return ApiResponseModel.withSuccess(response);
+        } else {
+          return ApiResponseModel.withError(
+            data['message'] ?? 'Failed to accept estimate',
+          );
+        }
+      } else {
+        return ApiResponseModel.withError(
+          'Server error: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (err) {
+      log('Dio error accepting repair estimate: $err');
+      return ApiResponseModel.withError(ApiErrorHandler.getMessage(err));
+    } catch (e) {
+      log('Unexpected error accepting repair estimate: $e');
+      return ApiResponseModel.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  @override
+  Future<ApiResponseModel> rejectRepairEstimate(dynamic data) async {
+    try {
+      final response = await dioClient!.post(
+        '${AppConstants.rejectEstimateUri}',
+        data: data,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = response.data as Map<String, dynamic>;
+
+        if (data['success'] == true) {
+          // print(' details fetched successfully');
+          return ApiResponseModel.withSuccess(response);
+        } else {
+          return ApiResponseModel.withError(
+            data['message'] ?? 'Failed to reject estimate',
+          );
+        }
+      } else {
+        return ApiResponseModel.withError(
+          'Server error: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (err) {
+      log('Dio error accepting repair estimate: $err');
+      return ApiResponseModel.withError(ApiErrorHandler.getMessage(err));
+    } catch (e) {
+      log('Unexpected error rejecting repair estimate: $e');
+      return ApiResponseModel.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 }

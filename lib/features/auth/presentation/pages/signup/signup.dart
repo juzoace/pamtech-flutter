@@ -47,16 +47,13 @@ class _SignUpPgeState extends State<SignUpPage> {
 
       if (success) {
         if (!mounted) return;
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomePage(),
-          ),
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const HomePage()),
+          (route) => false,
         );
       } else {
         throw Exception('Google Sign-In failed');
       }
-
     } catch (error) {
       await CustomAlert.showError(
         context: context,
@@ -116,7 +113,7 @@ class _SignUpPgeState extends State<SignUpPage> {
             children: [
               SingleChildScrollView(
                 child: Column(
-                  children : [
+                  children: [
                     // Top Header Section
                     Container(
                       height: 435,
@@ -131,7 +128,6 @@ class _SignUpPgeState extends State<SignUpPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const SizedBox(height: 190),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,9 +139,7 @@ class _SignUpPgeState extends State<SignUpPage> {
                               ),
                             ],
                           ),
-
                           const SizedBox(height: 28),
-
                           const Text(
                             'Create an account',
                             style: TextStyle(
@@ -155,9 +149,7 @@ class _SignUpPgeState extends State<SignUpPage> {
                               height: 1.2,
                             ),
                           ),
-
                           const SizedBox(height: 20),
-
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 24,
@@ -204,7 +196,6 @@ class _SignUpPgeState extends State<SignUpPage> {
                                     ),
                                   ),
                                 ),
-
                                 const SizedBox(height: 25),
                                 TextField(
                                   controller: _emailController,
@@ -362,8 +353,8 @@ class _SignUpPgeState extends State<SignUpPage> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppPallete.primaryColor,
                                 foregroundColor: Colors.white,
-                                disabledBackgroundColor: AppPallete.primaryColor
-                                    .withOpacity(0.6),
+                                disabledBackgroundColor:
+                                    AppPallete.primaryColor.withOpacity(0.6),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(24),
                                 ),

@@ -8,6 +8,9 @@
 
 import 'package:connectivity_plus/src/connectivity_plus_web.dart';
 import 'package:google_sign_in_web/google_sign_in_web.dart';
+import 'package:image_picker_for_web/image_picker_for_web.dart';
+import 'package:open_file_web/open_file_web.dart';
+import 'package:printing/printing_web.dart';
 import 'package:shared_preferences_web/shared_preferences_web.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
@@ -15,6 +18,9 @@ void registerPlugins([final Registrar? pluginRegistrar]) {
   final Registrar registrar = pluginRegistrar ?? webPluginRegistrar;
   ConnectivityPlusWebPlugin.registerWith(registrar);
   GoogleSignInPlugin.registerWith(registrar);
+  ImagePickerPlugin.registerWith(registrar);
+  OpenFilePlugin.registerWith(registrar);
+  PrintingPlugin.registerWith(registrar);
   SharedPreferencesPlugin.registerWith(registrar);
   registrar.registerMessageHandler();
 }

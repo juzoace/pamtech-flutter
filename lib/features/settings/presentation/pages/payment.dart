@@ -24,24 +24,9 @@ class _PaymentState extends State<Payment> {
     await Future.delayed(const Duration(seconds: 2));
     final bool hasData = false;
 
+    // ignore: dead_code
     if (hasData) {
-      setState(() {
-        _paymentHistory = [
-          {
-            'title': 'Oil Change & Filter',
-            'date': '15 Jan 2026',
-            'status': 'Completed',
-            'amount': '₦45,000',
-          },
-          {
-            'title': 'Brake Pad Replacement',
-            'date': '03 Dec 2025',
-            'status': 'Completed',
-            'amount': '₦72,500',
-          },
-        ];
-        _isLoading = false;
-      });
+
     } else {
       setState(() => _isLoading = false);
     }
@@ -343,8 +328,9 @@ class _PaymentState extends State<Payment> {
                                 style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.w600,
-                                  letterSpacing: -0.5,
+                                  letterSpacing: -1,
                                   color: Colors.black87,
+                                  wordSpacing: -1,         
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -356,6 +342,8 @@ class _PaymentState extends State<Payment> {
                                   fontSize: 14,
                                   color: Colors.grey.shade700,
                                   height: 1.45,
+                                  letterSpacing: -1,
+                                  wordSpacing: -1
                                 ),
                               ),
                             ],
